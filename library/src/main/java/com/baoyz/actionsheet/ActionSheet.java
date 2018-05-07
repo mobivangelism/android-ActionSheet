@@ -36,6 +36,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -60,6 +61,7 @@ public class ActionSheet extends Fragment implements View.OnClickListener {
 
     private static final String ARG_CANCEL_BUTTON_TITLE = "cancel_button_title";
     private static final String ARG_OTHER_BUTTON_TITLES = "other_button_titles";
+    private static final String ARG_OTHER_BUTTON_FOREGROUND_COLORS = "other_button_foreground_colors";
     private static final String ARG_CANCELABLE_ONTOUCHOUTSIDE = "cancelable_ontouchoutside";
     private static final int CANCEL_BUTTON_ID = 100;
     private static final int BG_VIEW_ID = 10;
@@ -253,6 +255,8 @@ public class ActionSheet extends Fragment implements View.OnClickListener {
 
     private void createItems() {
         String[] titles = getOtherButtonTitles();
+        String[] foregroundColors = getOtherButtonForegroundColors();
+
         if (titles != null) {
             for (int i = 0; i < titles.length; i++) {
                 Button bt = new Button(getActivity());
@@ -260,7 +264,14 @@ public class ActionSheet extends Fragment implements View.OnClickListener {
                 bt.setOnClickListener(this);
                 bt.setBackgroundDrawable(getOtherButtonBg(titles, i));
                 bt.setText(titles[i]);
-                bt.setTextColor(mAttrs.otherButtonTextColor);
+
+                if (foregroundColors != null && foregroundColors.length == titles.length &&
+                    !TextUtils.isEmpty(foregroundColors[i])) {
+                    bt.setTextColor(Color.parseColor(foregroundColors[i]));
+                } else {
+                    bt.setTextColor(mAttrs.otherButtonTextColor);
+                }
+
                 bt.setTextSize(TypedValue.COMPLEX_UNIT_PX, mAttrs.actionSheetTextSize);
                 if (i > 0) {
                     LinearLayout.LayoutParams params = createButtonLayoutParams();
@@ -380,6 +391,10 @@ public class ActionSheet extends Fragment implements View.OnClickListener {
         return getArguments().getStringArray(ARG_OTHER_BUTTON_TITLES);
     }
 
+    private String[] getOtherButtonForegroundColors() {
+        return getArguments().getStringArray(ARG_OTHER_BUTTON_FOREGROUND_COLORS);
+    }
+
     private boolean getCancelableOnTouchOutside() {
         return getArguments().getBoolean(ARG_CANCELABLE_ONTOUCHOUTSIDE);
     }
@@ -464,6 +479,7 @@ public class ActionSheet extends Fragment implements View.OnClickListener {
         private FragmentManager mFragmentManager;
         private String mCancelButtonTitle;
         private String[] mOtherButtonTitles;
+        private String[] mOtherButtonForegroundColors;
         private String mTag = "actionSheet";
         private boolean mCancelableOnTouchOutside;
         private ActionSheetListener mListener;
@@ -487,6 +503,11 @@ public class ActionSheet extends Fragment implements View.OnClickListener {
             return this;
         }
 
+        public Builder setOtherButtonForegroundColors(String... colors) {
+            mOtherButtonForegroundColors = colors;
+            return this;
+        }
+
         public Builder setTag(String tag) {
             mTag = tag;
             return this;
@@ -506,6 +527,7 @@ public class ActionSheet extends Fragment implements View.OnClickListener {
             Bundle bundle = new Bundle();
             bundle.putString(ARG_CANCEL_BUTTON_TITLE, mCancelButtonTitle);
             bundle.putStringArray(ARG_OTHER_BUTTON_TITLES, mOtherButtonTitles);
+            bundle.putStringArray(ARG_OTHER_BUTTON_FOREGROUND_COLORS, mOtherButtonForegroundColors);
             bundle.putBoolean(ARG_CANCELABLE_ONTOUCHOUTSIDE,
                     mCancelableOnTouchOutside);
             return bundle;
