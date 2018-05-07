@@ -26,4 +26,4 @@ dependencies {
 }
 
 apply plugin: 'maven'
-group='com.baoyz.android_actionsheet'
+group='com.github.mobivangelism.android-ActionSheet'
