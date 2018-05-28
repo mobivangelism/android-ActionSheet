@@ -101,10 +101,14 @@ public class ActionSheet extends Fragment implements View.OnClickListener {
         mDismissed = true;
         new Handler().post(new Runnable() {
             public void run() {
-                getFragmentManager().popBackStack();
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.remove(ActionSheet.this);
-                ft.commitAllowingStateLoss();
+                FragmentManager fm = getFragmentManager();
+
+                if (fm != null) {
+                    fm.popBackStack();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.remove(ActionSheet.this);
+                    ft.commitAllowingStateLoss();
+                }
             }
         });
     }
