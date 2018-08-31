@@ -273,9 +273,8 @@ public class ActionSheet extends Fragment implements View.OnClickListener {
             bt.setFocusable(false);
             bt.setBackgroundDrawable(mAttrs.otherButtonTopBackground);
             bt.setText(description);
-
+            bt.setPadding(20, 20, 20, 20);
             bt.setTextColor(mAttrs.descriptionTextColor);
-
             bt.setTextSize(TypedValue.COMPLEX_UNIT_PX, mAttrs.actionSheetTextSize);
             mPanel.addView(bt);
         }

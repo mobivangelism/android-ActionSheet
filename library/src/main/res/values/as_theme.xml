@@ -32,7 +32,7 @@
         <item name="cancelButtonMarginTop">10dp</item>
         <item name="actionSheetTextSize">16sp</item>
         <item name="descriptionTextColor">@android:color/darker_gray</item>
-        <item name="actionSheetDescriptionTextSize">14sp</item>
+        <item name="actionSheetDescriptionTextSize">12sp</item>
     </style>
 
 </resources>

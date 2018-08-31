@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements
         ActionSheet.createBuilder(this, getSupportFragmentManager())
                 .setCancelButtonTitle("Cancel")
                 .setOtherButtonTitles("Item1", "Item2", "Item3", "Item4")
-                //.setDescription("some description")
+                .setDescription("some long description that makes the padding work")
                 .setOtherButtonForegroundColors("", "", "", "#Ff0000")
                 .setCancelableOnTouchOutside(true).setListener(this).show();
     }
