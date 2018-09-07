@@ -336,10 +336,10 @@ public class ActionSheet extends Fragment implements View.OnClickListener {
 
         if (titles.length == 1) {
             if (isDescriptionEmpty) {
-                return mAttrs.otherButtonBottomBackground;
+                return mAttrs.otherButtonSingleBackground;
             }
 
-            return mAttrs.otherButtonSingleBackground;
+            return mAttrs.otherButtonBottomBackground;
         }
         if (titles.length == 2) {
             switch (i) {
